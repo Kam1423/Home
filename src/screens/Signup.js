@@ -30,14 +30,13 @@ import { TextInput } from "react-native-gesture-handler";
 const { LightGray} = Colors;
 
 const Signup = ({navigation}) => {
+    // set datetime show
     const [show, setShow] = useState(false);
-    const [date, setDate] = useState(new Date(2023, 0, 1));
+    const [date, setDate] = useState(new Date());
     
-    // Actual Date of Birth
     // Actual Date of Birth
     const [dob, setDob] = useState(new Date());
     
-
 
     const onChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -45,11 +44,9 @@ const Signup = ({navigation}) => {
         setDate(currentDate);
         setDob(currentDate); // เปลี่ยนจาก setDob(currentDate) เป็น setDob(new Date(currentDate))
     }
-
     const showDatePicker = () => {
         setShow(true);
     }
-
 
     return (
         <KeyboardAvoidingWrapper>
@@ -65,10 +62,10 @@ const Signup = ({navigation}) => {
             value={date}
             mode='date'
             is24Hour={true}
-            display="default" // เปลี่ยนจาก "default" เป็น "spinner"
+            display="default" // เปลี่ยนจาก "default" เป็น "spinner" เป็น Style
             onChange={onChange}
-        />
-)}
+        />       
+        )}
 
 
                 <Formik
@@ -79,38 +76,40 @@ const Signup = ({navigation}) => {
                                     phone: '',
                                     dateofBirth: '',
                                 }}
-                                validate={(values) => {
-                                    const errors = {};
-                            
-                                    if (!values.firstname.trim()) {
-                                        errors.firstname = 'กรุณากรอกชื่อ';
-                                    }
-                            
-                                    if (!values.lastname.trim()) {
-                                        errors.lastname = 'กรุณากรอกนามสกุล';
-                                    }
-                            
-                                    if (!values.id_card.trim()) {
-                                        errors.id_card = 'กรุณากรอกเลขบัตรประชาชน';
-                                    } else if (values.id_card.trim().length !== 13) {
-                                        errors.id_card = 'เลขบัตรประชาชนต้องมี 13 หลัก';
-                                    }
-                            
-                                    if (!values.phone.trim()) {
-                                        errors.phone = 'กรุณากรอกเบอร์โทรศัพท์';
-                                    } else if (values.phone.trim().length !== 10) {
-                                        errors.phone = 'เบอร์โทรศัพท์ต้องมี 10 หลัก';
-                                    }
-                            
-                                    if (!values.dateofBirth.trim()) {
-                                        errors.dateofBirth = 'กรุณาเลือกวันเกิด';
-                                    }
-                            
-                                    return errors;
-                                }}
+
                                 onSubmit={(values) => {
                                     console.log(values);
                                     navigation.navigate('DeviceScene');
+                                }}
+
+                                validate={(values) => {
+                                    const errors = {};
+                                        if (!values.firstname.trim()) {
+                                            errors.firstname = 'กรุณากรอกชื่อ';
+                                        }
+
+                                        if (!values.lastname.trim()) {
+                                            errors.lastname = 'กรุณากรอกนามสกุล';
+                                        }
+                                
+                                        if (!values.id_card.trim()) {
+                                            errors.id_card = 'กรุณากรอกเลขบัตรประชาชน';
+                                        } else if (values.id_card.trim().length !== 13) {
+                                            errors.id_card = 'เลขบัตรประชาชนต้องมี 13 หลัก';
+                                        }
+                                
+                                        if (!values.phone.trim()) {
+                                            errors.phone = 'กรุณากรอกเบอร์โทรศัพท์';
+                                        } else if (values.phone.trim().length !== 10) {
+                                            errors.phone = 'เบอร์โทรศัพท์ต้องมี 10 หลัก';
+                                        }
+                                
+                                        // Error Validation ของวันเกิด/ยังไม่ดักวันเกินว่าเกิดก่อนวันสมัคร
+
+                                        // if (!values.dateofBirth.trim()) {
+                                        //     errors.dateofBirth = 'กรุณาเลือกวันเกิด';
+                                        // }
+                                    return errors;
                                 }}
                             >
 
@@ -150,7 +149,7 @@ const Signup = ({navigation}) => {
                         {/* Text input ของ เบอร์โทรศัพท์ */}
                         <NumberTextInput 
                             label="เบอร์โทรศัพท์"
-                            icon="megaphone"
+                            icon="device-mobile"
                             value={values.phone}
                             onChangeText={handleChange('phone')}
                             onBlur={handleBlur('phone')}
@@ -161,11 +160,11 @@ const Signup = ({navigation}) => {
                         <DateTextInput 
                             label="วัน/เดือน/ปี เกิด"
                             icon="calendar"
-                            value={dob instanceof Date ? dob.toDateString() : ''}
+                            value={values.dateofBirth=dob}
+                            
                             onChangeText={handleChange('dateofBirth')}
                             onBlur={handleBlur('dateofBirth')}
                             showDatePicker={showDatePicker}
-                            error={errors.dateofBirth}
                         />
 
                         <StyledButton onPress={handleSubmit}>
@@ -209,9 +208,9 @@ const WordTextInput = ({icon, label, value, onChangeText, error})=>{
     )
 }
 
-// Text input ใช้ Number
+// Text input ใช้ วันเกิด
 const DateTextInput = ({ icon, label, value, onChangeText, showDatePicker, error }) => {
-    const formattedValue = value instanceof Date ? value.toDateString() : '';
+    const formattedValue = value instanceof Date ? value.toLocaleDateString() : '';
   
     return (
       <View>
@@ -219,7 +218,7 @@ const DateTextInput = ({ icon, label, value, onChangeText, showDatePicker, error
           <Octicons name={icon} size={20} color="black" />
         </LeftIcon>
         <StyledInputLabel>{label}</StyledInputLabel>
-        <TouchableOpacity onPress={showDatePicker}>
+        <TouchableOpacity onPress={showDatePicker}> 
           <TextInput
             value={formattedValue}
             placeholder="วัน เดือน ปี"
@@ -239,6 +238,7 @@ const DateTextInput = ({ icon, label, value, onChangeText, showDatePicker, error
         </TouchableOpacity>
         {error && <Text style={{ color: 'red' }}>{error}</Text>}
       </View>
+      
     );
   };
   
