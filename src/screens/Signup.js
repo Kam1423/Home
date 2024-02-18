@@ -179,7 +179,7 @@ const Signup = ({navigation}) => {
     );
 };
 
-// Text input ใช้ Name
+// Text input ใช้ Name Input
 const WordTextInput = ({icon, label, value, onChangeText, error})=>{
     return(
         <View>
