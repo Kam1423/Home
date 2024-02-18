@@ -208,7 +208,7 @@ const WordTextInput = ({icon, label, value, onChangeText, error})=>{
     )
 }
 
-// Text input ใช้ วันเกิด
+// Text input ใช้ใส่ค่า วันเกิด
 const DateTextInput = ({ icon, label, value, onChangeText, showDatePicker, error }) => {
     const formattedValue = value instanceof Date ? value.toLocaleDateString() : '';
   
