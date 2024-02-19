@@ -12,6 +12,7 @@ import DeviceScene from '../screens/DeviceScene';
 import SearchScreen from '../screens/SearchScreen';
 import PersonalScreen from '../screens/PersonalScreen';
 import SignatureScreen from '../screens/SignatureScreen';
+import ConsentScreen from '../screens/EULAscreen';
 
 const Stack = createStackNavigator();
 
@@ -21,7 +22,6 @@ const MainNavigator = () => {
     <NavigationContainer>
       <StatusBar hidden />
       <Stack.Navigator screenOptions={{}} initialRouteName='Root'>
-
         <Stack.Screen name="Root" component={TabNavigator} options={{headerShown: false,}}/>
         <Stack.Screen name="Welcome" component={Welcome}/>
         <Stack.Screen name="ProfileScreen" component={ProfileScreen}/>
@@ -32,10 +32,7 @@ const MainNavigator = () => {
         <Stack.Screen name="SearchScreen" component={SearchScreen}/>
         <Stack.Screen name="PersonalScreen" component={PersonalScreen}/>
         <Stack.Screen name="SignatureScreen" component={SignatureScreen}/>
-        
-
-        
-        
+        <Stack.Screen name="ConsentScreen" component={ConsentScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

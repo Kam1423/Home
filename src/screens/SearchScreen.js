@@ -1,112 +1,180 @@
-import React from 'react';
-import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView, Dimensions } from 'react-native';
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-const ConsentPopup = ({ visible, onDecline, onAccept }) => {
-  const navigation = useNavigation();
 
+const ProfileScreen = ({navigation}) => {
   return (
-    <Modal
-      animationType="slide"
-      transparent={true}
-      visible={visible}
-      onRequestClose={() => {
-        // ปิดโมดอล
-        console.log('Modal has been closed.');
-      }}
-    >
-      <View style={styles.centeredView}>
-        <View style={styles.modalView}>
-          <Text style={[styles.modalText, { fontSize: 25 }]}>แบบยินยอมการรับบริการ</Text>
-          <Text style={{ fontSize: 18, textAlign: 'left', marginBottom: 10 }}>
-            วัตถุประสงค์{'\n'}
-          </Text>
+    <SafeAreaView style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.titleBar}>
+            <Ionicons name="ios-arrow-back" size={24} color="#525750" onPress={() => navigation.navigate("Home")}/>
+            <MaterialIcons name="more" size={24} color="#525750"></MaterialIcons>
+        </View>
 
-          <View style={styles.closeButton}>
-            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-              <Text style={styles.closeButtonText}>X</Text>
-            </TouchableOpacity>
+        <View style={{ alignSelf: "center" }}>
+          <View style={styles.profileImage}>
+            <Image source={require('../../assets/images/Profile1.jpg')} style={styles.image} resizeMode="center"></Image>
           </View>
-
-          <View>
-            <Text style={{ fontSize: 16, textAlign: 'left', marginBottom: 5 }}>
-              1. เพื่อให้ประชาชน ผู้รับบริการ ทุกพื้นที่สามารถเข้าถึงบริการด้านการ ให้คำแนะนำด้านสุขภาพวินิจฉัยโรคเบื้องต้น
-            </Text>
-            <Text style={{ fontSize: 16, textAlign: 'left', marginBottom: 5 }}>
-              2. เพื่อให้ประชาชนผู้รับบริการสามารถเข้าถึงและบริหารจัดการข้อมูลสุขภาพทางอิเล็กทรอนิกส์ของต้นได้
-            </Text>
-            <Text style={{ fontSize: 16, textAlign: 'left', marginBottom: 5 }}>
-              3. เพื่อให้ระบบสารสนเทศและบุคลากรที่ได้รับอนุญาตในการรักษาพยาบาล สามารถนำข้อมูลทางอิเล็กทรอนิกส์เพื่อการบริการสุขภาพไปใช้สำหรับการเข้ารับการรักษาของผู้รับบริการ และเป็นข้อมูลสำคัญ
-            </Text>
+          <View style={styles.dm}>
+            <MaterialIcons name="chat" size={18} color="#DFD8C8"></MaterialIcons>
           </View>
-
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.button, { backgroundColor: 'red' }]} onPress={onDecline}>
-              <Text style={styles.buttonText}>ไม่ยินยอม</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, { backgroundColor: 'blue' }]} onPress={() => navigation.navigate('SignatureScreen')}>
-              <Text style={styles.buttonText}>เซ็นชื่อ</Text>
-            </TouchableOpacity>
-
-
+          <View style={styles.active}></View>
+          <View style={styles.add}>
+            <Ionicons name="ios-add" size={38} color="#DFD8C8" style={{marginTop: 6, marginLeft: 2}}></Ionicons>
           </View>
         </View>
-      </View>
-    </Modal>
+
+        <View style={styles.infoContainer}>
+          <Text style={[styles.text, { fontWeight: "200", fontSize: 28 }]}>sakornPhong  Rongtau</Text>
+        </View>
+        <View style={styles.hairline}></View>
+
+        <View style={{ marginTop: 32, marginLeft: 50 }}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View style={styles.mediaContainer}>
+              <Text style={[styles.text, { fontSize: 18 }]}>ชื่อ-นามสกุล : Julie Parker </Text>  
+              <Text style={[styles.text, { fontSize: 18 }]}>HN : 0123456789 </Text> 
+              <Text style={[styles.text, { fontSize: 18 }]}>Role : Citizen Gold </Text>
+              <Text style={[styles.text, { fontSize: 18 }]}>ID : 0251358 </Text>     
+            </View>
+            <View style={styles.mediaImageContainer}>
+              <Text style={[styles.text, { fontSize: 24 }]}></Text>
+            </View>
+          </ScrollView>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
-};
+}
+
+
 
 const styles = StyleSheet.create({
-  centeredView: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: '#fff'
   },
-  modalView: {
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+  text: {
+    color: "#525750"
   },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-    fontSize: 20,
+  hairline: {
+    backgroundColor:'black',
+    marginTop:20,
+    height:2,
+    width:Dimensions.get('screen').width,
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-    marginTop: 20,
+  subText:{
+    fontSize: 12,
+    color: "#AEB5BC",
+    textTransform: "uppercase",
+    fontWeight: "500"
   },
-  button: {
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+  image: {
+    flex: 1,
+    width: undefined,
+    height: undefined
   },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    textAlign: 'center',
+  titleBar: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 24,
+    marginHorizontal: 16
   },
-  closeButton: {
-    position: 'absolute',
+  profileImage: {
+    width: 180,
+    height: 180,
+    borderRadius: 100,
+    overflow: "hidden"
+  },
+  dm: {
+    backgroundColor: "#41444B",
+    position: "absolute",
     top: 20,
-    right: 45,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    alignItems: "center",
+    justifyContent: "center"
   },
-  closeButtonText: {
-    fontSize: 25,
-    color: 'gray',
+  active: {
+    backgroundColor: "#34FF89",
+    position: "absolute",
+    bottom: 28,
+    left: 10,
+    padding: 4,
+    height: 20,
+    width: 20,
+    borderRadius: 10
+  },
+  add: {
+    backgroundColor: "#41444B",
+    position: "absolute",
+    bottom: 0,
+    right: 0,
+    width: 50,
+    height: 50,
+    borderRadius: 30,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  infoContainer: {
+     alignSelf: "center",
+     alignItems: "center",
+     marginTop: 16
+  },
+  statsContainer:{
+    flexDirection:"row",
+    alignSelf: "center",
+    marginTop: 32
+  },
+  statsBox:{
+    alignItems: "center",
+    flex: 1
+  },
+  mediaImageContainer: {
+    width: 180,
+    height: 200,
+    borderRadius: 12,
+    overflow: "hidden",
+    marginHorizontal: 10
+  },
+  mediaCount: {
+    backgroundColor: "#41444B",
+    position: "absolute",
+    top: "50%",
+    marginTop: -50,
+    marginLeft: 30,
+    width: 100,
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 12,
+    shadowColor: "rgba(0 ,0 ,0 , 0.38)",
+    shadowOffset: { width: 0, height: 10},
+    shadowRadius: 20,
+    shadowOpacity: 1
+  },
+  recent: {
+    marginLeft: 78,
+    marginTop: 32,
+    marginBottom: 6,
+    fontSize: 10
+  },
+  recentItem: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    marginBottom: 16
+  },
+  recentItemIndicator: {
+    backgroundColor: "#CABFAB",
+    padding: 4,
+    height: 12,
+    width: 12,
+    borderRadius: 6,
+    marginTop: 3,
+    marginRight: 20
   }
 });
 
-export default ConsentPopup;
+export default ProfileScreen;

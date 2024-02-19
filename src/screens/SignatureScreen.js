@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Signature from 'react-native-signature-canvas';
 
+
 export default class SignatureScreen extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +11,8 @@ export default class SignatureScreen extends Component {
 
   handleSignature = signature => {
     this.setState({ signature });
+    this.props.navigation.navigate('PersonalScreen')
+    console.log('it work')
   };
 
   handleClear = () => {
@@ -17,6 +20,11 @@ export default class SignatureScreen extends Component {
     this.signatureRef.clearSignature();
   };
 
+  // handleSummit = () => {
+  //   this.props.navigation.navigate('PersonalScreen')
+  // };
+
+  
   render() {
     return (
       <View style={styles.container}>
@@ -25,14 +33,19 @@ export default class SignatureScreen extends Component {
           ref={ref => (this.signatureRef = ref)}
           onOK={this.handleSignature}
           onEmpty={() => console.log('Empty')}
-          descriptionText="เซ็นต์ที่นี่"
-          clearText="ล้าง"
-          confirmText="ยืนยัน"
+          descriptionText="กรุณาเซ็นข้างบน"
+          clearText="เซ็นใหม่"
+          confirmText="ยินยอม"
           webStyle={styles.signature}
+          imageType='image/png'
         />
-        <TouchableOpacity style={styles.button} onPress={this.handleClear}>
+
+        {/* <TouchableOpacity style={styles.button} onPress={this.handleClear}>ล้างข้อมูล */}
+
+        {/* <TouchableOpacity style={styles.button} onPress={this.handleSummit}>
           <Text style={styles.buttonText}>บันทึกข้อมูล</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
+        
       </View>
     );
   }

@@ -67,7 +67,6 @@ const Signup = ({navigation}) => {
         />       
         )}
 
-
                 <Formik
                     initialValues={{
                                     firstname: '',
@@ -79,38 +78,38 @@ const Signup = ({navigation}) => {
 
                                 onSubmit={(values) => {
                                     console.log(values);
-                                    navigation.navigate('PersonalScreen');
+                                    navigation.navigate('ConsentScreen');
                                 }}
 
-                                validate={(values) => {
-                                    const errors = {};
-                                        if (!values.firstname.trim()) {
-                                            errors.firstname = 'กรุณากรอกชื่อ';
-                                        }
+                                // validate={(values) => {
+                                //     const errors = {};
+                                //         if (!values.firstname.trim()) {
+                                //             errors.firstname = 'กรุณากรอกชื่อ';
+                                //         }
 
-                                        if (!values.lastname.trim()) {
-                                            errors.lastname = 'กรุณากรอกนามสกุล';
-                                        }
+                                //         if (!values.lastname.trim()) {
+                                //             errors.lastname = 'กรุณากรอกนามสกุล';
+                                //         }
                                 
-                                        if (!values.id_card.trim()) {
-                                            errors.id_card = 'กรุณากรอกเลขบัตรประชาชน';
-                                        } else if (values.id_card.trim().length !== 13) {
-                                            errors.id_card = 'เลขบัตรประชาชนต้องมี 13 หลัก';
-                                        }
+                                //         if (!values.id_card.trim()) {
+                                //             errors.id_card = 'กรุณากรอกเลขบัตรประชาชน';
+                                //         } else if (values.id_card.trim().length !== 13) {
+                                //             errors.id_card = 'เลขบัตรประชาชนต้องมี 13 หลัก';
+                                //         }
                                 
-                                        if (!values.phone.trim()) {
-                                            errors.phone = 'กรุณากรอกเบอร์โทรศัพท์';
-                                        } else if (values.phone.trim().length !== 10) {
-                                            errors.phone = 'เบอร์โทรศัพท์ต้องมี 10 หลัก';
-                                        }
+                                //         if (!values.phone.trim()) {
+                                //             errors.phone = 'กรุณากรอกเบอร์โทรศัพท์';
+                                //         } else if (values.phone.trim().length !== 10) {
+                                //             errors.phone = 'เบอร์โทรศัพท์ต้องมี 10 หลัก';
+                                //         }
                                 
-                                        // Error Validation ของวันเกิด/ยังไม่ดักวันเกินว่าเกิดก่อนวันสมัคร
+                                //         // Error Validation ของวันเกิด/ยังไม่ดักวันเกินว่าเกิดก่อนวันสมัคร
 
-                                        // if (!values.dateofBirth.trim()) {
-                                        //     errors.dateofBirth = 'กรุณาเลือกวันเกิด';
-                                        // }
-                                    return errors;
-                                }}
+                                //         // if (!values.dateofBirth.trim()) {
+                                //         //     errors.dateofBirth = 'กรุณาเลือกวันเกิด';
+                                //         // }
+                                //     return errors;
+                                // }}
                             >
 
                 {({ handleChange, handleBlur, handleSubmit, values, errors }) => (

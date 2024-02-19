@@ -8,7 +8,6 @@ import SectionHeader from '../components/SectionHeader';
 import HomeList from '../components/HomeList';
 import { LinearGradient } from 'expo-linear-gradient';
 
-
 const HomeScreen = () => {
   return (
     <LinearGradient style={styles.container}

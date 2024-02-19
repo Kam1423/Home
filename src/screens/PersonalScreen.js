@@ -85,7 +85,7 @@ const PersonalScreen = ({ navigation }) => {
                             }}
                             onSubmit={(values) => {
                                 console.log(values);
-                                navigation.navigate('SignatureScreen');
+                                navigation.navigate('HomeScreen');
                             }}
                         >
                         
@@ -100,6 +100,7 @@ const PersonalScreen = ({ navigation }) => {
                                     onChangeText={handleChange('houseNumber')}
                                     onBlur={handleBlur('houseNumber')}
                                     error={errors.houseNumber}
+                                    maxLength={99}
                                 />
                                 {/* Text input for village */}
                                 <WordTextInput
@@ -109,6 +110,7 @@ const PersonalScreen = ({ navigation }) => {
                                     onChangeText={handleChange('village')}
                                     onBlur={handleBlur('village')}
                                     error={errors.village}
+                                    maxLength={99}
                                 />
                                 <WordTextInput
                                     label="ซอย"
@@ -117,6 +119,7 @@ const PersonalScreen = ({ navigation }) => {
                                     onChangeText={handleChange('alley')}
                                     onBlur={handleBlur('alley')}
                                     error={errors.alley}
+                                    maxLength={99}
                                 />
                                 <WordTextInput
                                     label="ถนน"
@@ -125,6 +128,7 @@ const PersonalScreen = ({ navigation }) => {
                                     onChangeText={handleChange('street')}
                                     onBlur={handleBlur('street')}
                                     error={errors.street}
+                                    maxLength={99}
                                 />
                                 <WordTextInput
                                     label="รหัสไปรษณีย์"
@@ -133,6 +137,7 @@ const PersonalScreen = ({ navigation }) => {
                                     onChangeText={handleChange('postalCode')}
                                     onBlur={handleBlur('postalCode')}
                                     error={errors.postalCode}
+                                    maxLength={5}
                                 />
                                 <WordTextInput
                                     label="จังหวัด"
@@ -142,6 +147,7 @@ const PersonalScreen = ({ navigation }) => {
                                     onBlur={handleBlur('province')}
                                     error={errors.province}
                                     keyboardType="default"
+                                    maxLength={99}
                                 />
 
                                 <WordTextInput
@@ -151,6 +157,7 @@ const PersonalScreen = ({ navigation }) => {
                                     onChangeText={handleChange('lineId')}
                                     onBlur={handleBlur('lineId')}
                                     error={errors.lineId}
+                                    maxLength={99}
                                 />
 
 
@@ -166,7 +173,7 @@ const PersonalScreen = ({ navigation }) => {
     );
 };
 
-const WordTextInput = ({ icon, label, value, onChangeText, error }) => {
+const WordTextInput = ({ icon, label, value, onChangeText, error ,maxLength}) => {
     return (
         <View>
             <LeftIcon>
@@ -187,7 +194,8 @@ const WordTextInput = ({ icon, label, value, onChangeText, error }) => {
                     backgroundColor: LightGray,
                     opacity: 0.5,
                 }}
-                keyboardType={label === 'บ้านเลขที่' || label === 'หมู่บ้าน' || label === 'รหัสไปรษณีย์' ? 'numeric' : 'default'}
+                maxLength={maxLength}
+                keyboardType={label === 'บ้านเลขที่' || label === 'หมู่ที่' || label === 'รหัสไปรษณีย์' ? 'numeric' : 'default'}
             />
             {error && <Text style={{ color: 'red' }}>{error}</Text>}
         </View>
