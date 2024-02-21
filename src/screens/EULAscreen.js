@@ -1,30 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Modal, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-const ConsentScreen = ({ visible, onDecline, onAccept }) => {
-  const navigation = useNavigation();
+const ConsentScreen = ({visibleModal,setVisibleModal}) => {
 
+  [visibleModal,setVisibleModal] = useState(true);
+
+  const navigation = useNavigation();
+  
   return (
     <Modal
       animationType="slide"
-      transparent={true}
-      visible={visible}
+      transparent={false}
+      visible={visibleModal}
       onRequestClose={() => {
-        // ปิดโมเดล (กากบาท)
+        // ปิดModal (ปุ่มย้อนกลับ)
+        visibleModal(false)
         navigation.navigate('Signup')
         console.log('Modal has been closed.');
       }}
     >
+      
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <Text style={[styles.modalText, { fontSize: 25 }]}>แบบยินยอมการรับบริการ{'\n'}</Text>
-          
-          <View style={styles.closeButton}>
-            <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
-              <Text style={styles.closeButtonText}>x</Text>
-            </TouchableOpacity>
-          </View>
 
           <View>
             <Text style={{ fontSize: 18, textAlign: 'left', marginBottom: 10 }}>
@@ -43,14 +42,21 @@ const ConsentScreen = ({ visible, onDecline, onAccept }) => {
           </View>
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={[styles.button, { backgroundColor: 'red' }]} onPress={onDecline}>
+            <TouchableOpacity style={[styles.button, { backgroundColor: 'red' }]} onPress={() => {
+                setVisibleModal(false)
+                navigation.navigate('Signup')
+              }}
+            >
               <Text style={styles.buttonText}>ไม่ยินยอม</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, { backgroundColor: 'blue' }]} onPress={() => navigation.navigate('SignatureScreen')}>
-              <Text style={styles.buttonText}>เซ็นชื่อ</Text>
+
+            <TouchableOpacity style={[styles.button, { backgroundColor: 'blue' }]} onPress={() => {
+                setVisibleModal(false)
+                navigation.navigate('SignatureScreen')
+              }}
+            >
+              <Text style={styles.buttonText}>ยินยอม</Text>
             </TouchableOpacity>
-
-
           </View>
         </View>
       </View>

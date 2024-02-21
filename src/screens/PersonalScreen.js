@@ -85,7 +85,7 @@ const PersonalScreen = ({ navigation }) => {
                             }}
                             onSubmit={(values) => {
                                 console.log(values);
-                                navigation.navigate('HomeScreen');
+                                navigation.navigate('Root');
                             }}
                         >
                         
@@ -195,7 +195,7 @@ const WordTextInput = ({ icon, label, value, onChangeText, error ,maxLength}) =>
                     opacity: 0.5,
                 }}
                 maxLength={maxLength}
-                keyboardType={label === 'บ้านเลขที่' || label === 'หมู่ที่' || label === 'รหัสไปรษณีย์' ? 'numeric' : 'default'}
+                keyboardType={ label === 'หมู่ที่' || label === 'รหัสไปรษณีย์' ? 'numeric' : 'default'}
             />
             {error && <Text style={{ color: 'red' }}>{error}</Text>}
         </View>
